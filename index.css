@@ -1,0 +1,107 @@
+@font-face {
+	font-family: "Star-Wars";
+	src: url("./fonts/Death Star.otf");
+}
+
+@font-face {
+	font-family: "Star-Wars-2";
+	src: url("./fonts/Starjout.ttf");
+}
+
+@font-face {
+	font-family: "Franklin";
+	src: url("./fonts/franklingothic_demi.ttf");
+}
+
+body {
+	margin: 0;
+	background-image: url("./images/sky.jpg");
+	background-color: rgba(51, 51, 51, 0.897);
+	background-size: cover;
+	background-blend-mode: lighten;
+
+} 
+
+.container {
+	width: 580px;
+	height: 1140px;
+	margin: 50px auto;
+	background-color: lightyellow;
+	border: 10px solid #FFE81F;
+	border-radius: 15px;
+	font-family: "Franklin", sans-serif;
+	font-weight: normal;
+}
+
+header {
+	background-image: url("./images/kendo-banner.jpg");
+	background-color: rgba(255, 255, 255, 0.212);
+	background-size: cover;
+	background-blend-mode: lighten;
+	height: 147px;
+	padding: 30px;
+}
+
+h1, h2 {
+	margin: 0;
+	padding: 10px;
+	font-family: "Star-Wars", sans-serif;
+	color: #FFE81F;
+	letter-spacing: 3px;
+	text-shadow: black 0 0 5px;
+}
+
+h1 {
+	font-size: 40px;
+}
+
+h2 {
+	font-size: 20px;
+}
+
+.item {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border-bottom: 1px solid gray;
+	margin: 0 30px;
+	padding: 20px 0;
+}
+
+.item-img {
+	width: 110px;
+}
+
+.item-details {
+	margin-left: 20px;
+
+}
+
+h3 {
+	font-size: 24px;
+	margin: 0;
+	font-family: "Star-Wars-2", sans-serif;
+	letter-spacing: 2px;
+}
+
+.item-materials {
+	font-size: 16px;
+	color: gray;
+	margin: 0;
+	padding-top: 5px;
+}
+
+.item-price {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.add-btn {
+	border: 1px solid gray;
+	margin-left: auto;
+	border-radius: 50%;
+	background-color: lightyellow;
+	font-size: 25px;
+	height: 40px;
+	width: 40px;
+}
