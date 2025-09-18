@@ -38,13 +38,12 @@ header {
 	background-color: rgba(255, 255, 255, 0.212);
 	background-size: cover;
 	background-blend-mode: lighten;
-	height: 147px;
-	padding: 30px;
+	height: 121px;
+	padding: 20px;
 }
 
 h1, h2 {
 	margin: 0;
-	padding: 10px;
 	font-family: "Star-Wars", sans-serif;
 	color: #FFE81F;
 	letter-spacing: 3px;
@@ -53,6 +52,7 @@ h1, h2 {
 
 h1 {
 	font-size: 40px;
+	padding-bottom: 10px;
 }
 
 h2 {
