@@ -105,3 +105,15 @@ h3 {
 	height: 40px;
 	width: 40px;
 }
+
+.cart {
+	display: none;
+}
+
+h4{
+	text-align: center;
+	font-family: "Star-Wars";
+	font-size: 20px;
+	font-weight: normal;
+	letter-spacing: 2px;
+}
