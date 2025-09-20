@@ -39,6 +39,28 @@
 					</div>
 					<button class="complete-btn" id="complete-btn">Complete order</button>
 				</div>
+				<div id="modal" class="modal">
+					<div>
+						<div class="modal-close-btn-container">
+							<button id="modal-close-btn" class="modal-close-btn">X</button>
+						</div>
+						<p class="payment-title">Enter card details *</p>
+						<div class="payment-form">
+							<form id="payment-form">
+								<label for="name">Cardholder's name:</label><br/>
+								<input type="text" id="name" name="cardholder-name" placeholder="Enter your name" required/><br/>
+								<label for="card-number">Credit card number:</label><br/>
+								<input type="number" id="card-number" name="card-number" pattern="[0-9]{16}" placeholder="xxxx xxxx xxxx xxxx" required/><br/>
+								<label for="ccv-number">CCV number:</label><br/>
+								<input type="number" id="ccv-number" name="ccv-number" pattern="[0-9]{3}" placeholder="xxx" required/><br/>
+								<button type="submit" id="pay-btn" class="pay-btn">Pay</button>
+								<p class="explanation">* fake ones are fine ;)</p>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="confirmation-msg" id="confirmation-msg">
+				</div>
 			</main>
 		</div>
 

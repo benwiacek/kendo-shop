@@ -229,17 +229,122 @@ h4{
 	margin-left: auto;
 }
 
-.complete-btn {
+.complete-btn, .pay-btn {
 	border: none;
-	padding: 10px 20px;
+	padding: 10px 0;
 	margin: 20px 30px;
 	font-family: "Franklin";
 	font-size: 22px;
-	color: whitesmoke;
+	color: white;
 	background-color: green;
 	transition: transform 0.1s ease-out
 }
 
-.complete-btn:active {
-	transform: scale(0.98);
+.complete-btn:active,
+.pay-btn:active {
+	transform: scale(0.99);
+}
+
+.complete-btn:hover, 
+.pay-btn:hover {
+	background-color: rgb(1, 161, 1);
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	bottom:0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	height: 500px;
+	width: 450px;
+	background-color: white;
+	border-radius: 15px;
+	box-shadow: 5px 5px 200px black;
+}
+
+.modal-close-btn-container {
+	text-align: right;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+.modal-close-btn {
+	font-size: 22px;
+	font-weight: bold;
+    background-color: transparent;
+    border: 2px solid darkgray;
+    color: darkgray;
+    padding: 0;
+	border-radius: 50%;
+	height: 30px;
+	width: 30px;
+	transition: transform 0.1s ease-out
+}
+
+.modal-close-btn:active {
+	transform: scale(0.95);
+}
+
+.payment-title {
+	font-size: 30px;
+	font-family: "Star-Wars";
+	letter-spacing: 2px;
+	text-align: center;
+}
+
+.payment-form {
+	text-align: center;
+	font-size: 20px;
+}
+
+label {
+	margin: 5px;
+}
+
+input {
+	width: 400px;
+	height: 25px;
+	margin: 10px;
+}
+
+.pay-btn {
+	width: 410px;
+	margin: 40px auto;
+	display: block;
+	transition: transform 0.1s ease-out
+}
+
+.pay-btn:active {
+	transform: scale(0.99)
+}
+
+.explanation {
+	font-size: 14px;
+	font-style: italic;
+	margin: 15px;
+}
+
+.confirmation-msg {
+	display: none;
+	text-align: center;
+	color: rgb(1, 78, 1);
+	background-color: rgba(116, 228, 41, 0.322);
+	width: 420px;
+	margin: 40px auto;
+	border-radius: 10px;
+}
+
+.msg-title {
+	font-size: 25px;
+	margin: 0;
+	padding: 20px 20px 0 20px;
+}
+
+.msg-text {
+	font-size: 20px;
+	margin: 0;
+	padding: 20px;
 }

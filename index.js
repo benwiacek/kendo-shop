@@ -6,6 +6,9 @@ const discountDiv = document.getElementById("discount")
 let subTotal = 0
 let discount = 0
 let totalPrice = 0
+const modal = document.getElementById("modal")
+const paymentForm = document.getElementById("payment-form")
+const confirmation = document.getElementById("confirmation-msg")
 
 /* RENDER INVENTORY */
 
@@ -81,8 +84,6 @@ function addItemCart(itemId) {
     targetItem.quantity++
     itemQuantity.innerHTML = targetItem.quantity
     renderCart()
-    console.log(typeof targetItem.price)
-    console.log(subTotal)
 }
 
 /* DECREASE ITEM QUANTITY */
@@ -163,3 +164,30 @@ function removeItem(itemId) {
         renderCart()
     }
 }
+
+/* COMPLETE ORDER MODAL*/
+
+
+document.getElementById("complete-btn").addEventListener("click", () => modal.style.display = "block")
+
+document.getElementById("modal-close-btn").addEventListener("click", () => modal.style.display = "none")
+
+/* CONFIRMATION */
+
+paymentForm.addEventListener("submit", function(e) {
+    e.preventDefault()
+
+    modal.style.display = "none"
+    cart.style.display = "none"
+    confirmation.style.display = "block"
+
+    const paymentFormData = new FormData(paymentForm)
+    const name = paymentFormData.get("cardholder-name")
+
+    let message = 
+        `<p class="msg-title">Thank you ${name}!</p>
+        <p class="msg-text">Your order of $${totalPrice} is on the way.<br/>
+        You can expect delivery in 2.5 lightyears!</p>`
+    
+    confirmation.innerHTML = message
+})
