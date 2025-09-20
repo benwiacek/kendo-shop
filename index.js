@@ -17,7 +17,7 @@ function getCatalogFeedHtml(arr) {
                 <div class="item-details">
                     <h3 class="item-name">${name}</h3>
                     <p class="item-materials">${materials.join(", ")}</p>
-                    <p class="item-price">$${price}</p>
+                    <p class="item-price">$${price.toFixed(2)}</p>
                 </div>
                 <button data-add="${id}" class="add-btn">+</button>
             </div>`
@@ -26,7 +26,7 @@ function getCatalogFeedHtml(arr) {
 
 document.getElementById("catalog").innerHTML = getCatalogFeedHtml(inventoryArray)
 
-/* RENDER CART  */
+/* ADD ITEM TO CART  */
 
 document.addEventListener("click", function(e) {
     if (e.target.dataset.add){
@@ -34,12 +34,12 @@ document.addEventListener("click", function(e) {
     }
 })
 
+const cart = document.getElementById("cart")
 let cartItems = []
 
 function addItemCart(itemId) {
     const targetItem = inventoryArray.filter(item => item.id === itemId)[0]
-    const cart = document.getElementById("cart")
-    cart.style.display = "block"
+    cart.style.display = "flex"
 
     if (!cartItems.some(obj => obj.id === itemId)) {
         cartItems.push(targetItem)
@@ -49,21 +49,47 @@ function addItemCart(itemId) {
         targetItem.quantity++
     }
 
-    const totalPrice = cartItems.reduce((total, currentItem) => total + (currentItem.price * currentItem.quantity),0)
-    console.log(totalPrice)
+    renderCart()
+}
 
+/* RENDER CART */
+
+function renderCart() {
 
     const orderFeed = cartItems.map(targetItem =>`
-        <div>
-            <span class="item-cart">${targetItem.name}</span>
-            <span class="remove">remove</span>
+        <div class="item-cart">
+            <span class="item-cart-name">${targetItem.name}</span>
+            <button class="remove-btn" data-remove="${targetItem.id}">remove</button>
             <span class="item-cart-quantity">x ${targetItem.quantity}</span>
-            <span class="item-cart-total-price">$${targetItem.price * targetItem.quantity}</span>
+            <span class="item-cart-total-price">$${(targetItem.price * targetItem.quantity).toFixed(2)}</span>
         </div>`
     ).join("")
 
+    const totalPrice = cartItems.reduce((total, currentItem) => total + (currentItem.price * currentItem.quantity),0)
     document.getElementById("order").innerHTML = orderFeed
+    document.getElementById("amount").innerHTML = `$${totalPrice.toFixed(2)}`
+}
 
-    document.getElementById("amount").innerHTML = totalPrice
+/* REMOVE ITEM FROM CART */
 
+document.addEventListener("click", function (e) {
+    if (e.target.dataset.remove) {
+        removeItem(e.target.dataset.remove)
+    }
+})
+
+function removeItem(itemId) {
+    const targetItem = cartItems.filter(item => item.id === itemId)[0]
+    let index = cartItems.indexOf(targetItem)
+
+    if(index > -1) {
+        cartItems.splice(index, 1)
+    }
+
+    if(cartItems.length === 0) {
+        cart.style.display = "none";
+    }
+    else {
+        renderCart()
+    }
 }

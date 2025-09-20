@@ -24,7 +24,7 @@ body {
 
 .container {
 	width: 580px;
-	height: 1140px;
+	height: 1160px;
 	margin: 50px auto;
 	background-color: lightyellow;
 	border: 10px solid #FFE81F;
@@ -104,10 +104,21 @@ h3 {
 	font-size: 25px;
 	height: 40px;
 	width: 40px;
+	transition: transform 0.1s ease-out
+}
+
+.add-btn:hover,
+.add-btn:active {
+	cursor: pointer;
+}
+
+.add-btn:active {
+	transform: scale(0.95);
 }
 
 .cart {
 	display: none;
+	flex-direction: column;
 }
 
 h4{
@@ -116,4 +127,73 @@ h4{
 	font-size: 20px;
 	font-weight: normal;
 	letter-spacing: 2px;
+}
+
+.order {
+	margin: 0 30px;
+	border-bottom: 2px solid black;
+	padding-bottom: 5px;
+}
+
+.item-cart {
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	padding: 5px;
+}
+
+.item-cart-name {
+	font-size: 20px;;
+}
+
+.remove-btn {
+	color: lightgray;
+	font-size: 11px;
+	font-family: "Franklin";
+	position: absolute;
+	left: 55px;
+	top: 12px;
+	border: none;
+	background-color: transparent;
+	transition: transform 0.1s ease-out
+}
+
+.remove-btn:active {
+	transform: scale(0.95);
+}
+
+.item-cart-quantity {
+	position: absolute;
+	left: 130px;
+}
+
+.item-cart-total-price {
+	margin-left: auto;
+}
+
+.total-price {
+	font-size: 25px;
+	padding: 10px 0;
+	display: flex;
+	flex-direction: row;
+	margin: 0 30px;
+}
+
+.amount {
+	margin-left: auto;
+}
+
+.complete-btn {
+	border: none;
+	padding: 10px 20px;
+	margin: 20px 30px;
+	font-family: "Franklin";
+	font-size: 22px;
+	color: whitesmoke;
+	background-color: green;
+	transition: transform 0.1s ease-out
+}
+
+.complete-btn:active {
+	transform: scale(0.98);
 }
