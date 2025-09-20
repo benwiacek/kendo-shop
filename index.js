@@ -1,5 +1,12 @@
 import inventoryArray from "./inventoryArray.js"
 
+const cart = document.getElementById("cart")
+let cartItems = []
+const discountDiv = document.getElementById("discount")
+let subTotal = 0
+let discount = 0
+let totalPrice = 0
+
 /* RENDER INVENTORY */
 
 function getCatalogFeedHtml(arr) {
@@ -19,12 +26,38 @@ function getCatalogFeedHtml(arr) {
                     <p class="item-materials">${materials.join(", ")}</p>
                     <p class="item-price">$${price.toFixed(2)}</p>
                 </div>
-                <button data-add="${id}" class="add-btn">+</button>
+                <div class="quantities">
+                    <button id="reduce-${id}" data-reduce="${id}" class="reduce-btn">-</button>
+                    <span id="${id}-quantity" class="item-quantity">1</span>
+                    <button data-add="${id}" class="add-btn">+</button>
+                </div>
             </div>`
     }).join("")
 }
 
 document.getElementById("catalog").innerHTML = getCatalogFeedHtml(inventoryArray)
+
+/* RENDER CART */
+
+function renderCart() {
+    if(cartItems.length > 0) {
+        cart.style.display = "flex"
+        const orderFeed = cartItems.map(targetItem =>`
+            <div class="item-cart">
+                <span class="item-cart-name">${targetItem.name}</span>
+                <button class="remove-btn" data-remove="${targetItem.id}">remove</button>
+                <span class="item-cart-quantity">x ${targetItem.quantity}</span>
+                <span class="item-cart-total-price">$${(targetItem.price * targetItem.quantity).toFixed(2)}</span>
+            </div>`
+        ).join("")
+    document.getElementById("order").innerHTML = orderFeed
+    subTotal = cartItems.reduce((total, currentItem) => total + (currentItem.price * currentItem.quantity),0)
+    addDiscount()
+    getTotalPrice()
+    } else {
+        cart.style.display = "none"
+    }
+}
 
 /* ADD ITEM TO CART  */
 
@@ -34,62 +67,71 @@ document.addEventListener("click", function(e) {
     }
 })
 
-const cart = document.getElementById("cart")
-let cartItems = []
-
 function addItemCart(itemId) {
     const targetItem = inventoryArray.filter(item => item.id === itemId)[0]
-    cart.style.display = "flex"
+    const itemQuantity = document.getElementById(`${itemId}-quantity`)
+    const reduceBtn = document.getElementById(`reduce-${itemId}`)
 
     if (!cartItems.some(obj => obj.id === itemId)) {
         cartItems.push(targetItem)
-        targetItem.quantity = 1
-
-    } else {
-        targetItem.quantity++
+        itemQuantity.style.display = "block"
+        reduceBtn.style.display = "block"       
     }
 
+    targetItem.quantity++
+    itemQuantity.innerHTML = targetItem.quantity
     renderCart()
+    console.log(typeof targetItem.price)
+    console.log(subTotal)
 }
 
-/* RENDER CART */
+/* DECREASE ITEM QUANTITY */
 
-function renderCart() {
-    const orderFeed = cartItems.map(targetItem =>`
-        <div class="item-cart">
-            <span class="item-cart-name">${targetItem.name}</span>
-            <button class="remove-btn" data-remove="${targetItem.id}">remove</button>
-            <span class="item-cart-quantity">x ${targetItem.quantity}</span>
-            <span class="item-cart-total-price">$${(targetItem.price * targetItem.quantity).toFixed(2)}</span>
-        </div>`
-    ).join("")
+document.addEventListener("click", function(e) {
+    if (e.target.dataset.reduce) {
+        reduceItemCart(e.target.dataset.reduce)
+    }
+})
 
-    document.getElementById("order").innerHTML = orderFeed
-    getTotalPrice()
+function reduceItemCart(itemId) {
+    const targetItem = inventoryArray.filter(item => item.id === itemId)[0]
+    const itemQuantity = document.getElementById(`${itemId}-quantity`)
+    const reduceBtn = document.getElementById(`reduce-${itemId}`)
+    
+    targetItem.quantity--
+
+    if (targetItem.quantity === 0) {
+        reduceBtn.style.display = "none"
+        itemQuantity.style.display = "none"
+        let index = cartItems.indexOf(targetItem)
+            if(index > -1) {
+                cartItems.splice(index, 1)
+            }
+    } else {
+        itemQuantity.innerHTML = targetItem.quantity
+    }
+    renderCart ()
+}
+
+/* ADD DISCOUNT */
+
+function addDiscount() {
+
+    if(cartItems.length === 4) {
+        discount = subTotal*0.15
+        discountDiv.style.display = "block"
+        document.getElementById("sub-total").innerHTML = `$${subTotal.toFixed(2)}`
+        document.getElementById("discount-amount").innerHTML = `- $${discount.toFixed(2)}`
+    } else {
+        discountDiv.style.display = "none"
+        discount = 0
+    }
 }
 
 /* GET TOTAL PRICE */
 
-let totalPrice = 0
-
 function getTotalPrice() {
-    const discountDiv = document.getElementById("discount")
-
-    let subTotal = 0
-    let discount = 0
-
-    subTotal = cartItems.reduce((total, currentItem) => total + (currentItem.price * currentItem.quantity),0)
-
-    if(cartItems.length === 4) {
-        discount = subTotal*0.15
-        totalPrice = subTotal - discount
-        discountDiv.style.display = "block"
-        document.getElementById("sub-total").innerHTML = `$${subTotal.toFixed(2)}`
-        document.getElementById("discount-amount").innerHTML = `- $${discount.toFixed(2)}`
-
-    } else {
-        totalPrice = subTotal
-    }
+    totalPrice = subTotal - discount
     document.getElementById("price").innerHTML = `$${totalPrice.toFixed(2)}`
 }
 
@@ -103,10 +145,15 @@ document.addEventListener("click", function (e) {
 
 function removeItem(itemId) {
     const targetItem = cartItems.filter(item => item.id === itemId)[0]
+    const itemQuantity = document.getElementById(`${itemId}-quantity`)
+    const reduceBtn = document.getElementById(`reduce-${itemId}`)
     let index = cartItems.indexOf(targetItem)
 
     if(index > -1) {
+        targetItem.quantity = 0
         cartItems.splice(index, 1)
+        itemQuantity.style.display = "none"
+        reduceBtn.style.display = "none"      
     }
 
     if(cartItems.length === 0) {

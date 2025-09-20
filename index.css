@@ -103,23 +103,45 @@ h3 {
 	font-weight: bold;
 }
 
-.add-btn {
-	border: 1px solid gray;
+.quantities{
 	margin-left: auto;
+	display: flex;
+	flex-direction: row;
+	position: relative;
+}
+
+.add-btn,
+.reduce-btn {
+	border: 1px solid gray;
 	border-radius: 50%;
 	background-color: lightyellow;
 	font-size: 25px;
-	height: 40px;
-	width: 40px;
+	height: 30px;
+	width: 30px;
+	margin: 15px;
 	transition: transform 0.1s ease-out
 }
 
+.item-quantity {
+	position: absolute;
+	left: 55px;
+	top: 20px;
+}
+
+.reduce-btn,
+.item-quantity {
+	display: none;
+}
+
 .add-btn:hover,
-.add-btn:active {
+.add-btn:active,
+.reduce-btn:active,
+.reduce-btn:hover {
 	cursor: pointer;
 }
 
-.add-btn:active {
+.add-btn:active,
+.reduce-btn:active {
 	transform: scale(0.95);
 }
 
