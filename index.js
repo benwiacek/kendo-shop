@@ -55,7 +55,6 @@ function addItemCart(itemId) {
 /* RENDER CART */
 
 function renderCart() {
-
     const orderFeed = cartItems.map(targetItem =>`
         <div class="item-cart">
             <span class="item-cart-name">${targetItem.name}</span>
@@ -65,9 +64,33 @@ function renderCart() {
         </div>`
     ).join("")
 
-    const totalPrice = cartItems.reduce((total, currentItem) => total + (currentItem.price * currentItem.quantity),0)
     document.getElementById("order").innerHTML = orderFeed
-    document.getElementById("amount").innerHTML = `$${totalPrice.toFixed(2)}`
+    getTotalPrice()
+}
+
+/* GET TOTAL PRICE */
+
+let totalPrice = 0
+
+function getTotalPrice() {
+    const discountDiv = document.getElementById("discount")
+
+    let subTotal = 0
+    let discount = 0
+
+    subTotal = cartItems.reduce((total, currentItem) => total + (currentItem.price * currentItem.quantity),0)
+
+    if(cartItems.length === 4) {
+        discount = subTotal*0.15
+        totalPrice = subTotal - discount
+        discountDiv.style.display = "block"
+        document.getElementById("sub-total").innerHTML = `$${subTotal.toFixed(2)}`
+        document.getElementById("discount-amount").innerHTML = `- $${discount.toFixed(2)}`
+
+    } else {
+        totalPrice = subTotal
+    }
+    document.getElementById("price").innerHTML = `$${totalPrice.toFixed(2)}`
 }
 
 /* REMOVE ITEM FROM CART */

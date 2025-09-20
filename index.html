@@ -16,15 +16,26 @@
 			</header>	
 			
 			<main>
+				<div class="discount-line">Upgrade your gear and save 15% on your order with a full bogu set.</div>
 				<div id="catalog" class="catalog">
 				</div>
 				<div id="cart" class="cart">
 					<h4>Your Order</h4>
 					<div id="order" class="order">
 					</div>
-					<div id="total-price" class="total-price">
+					<div class="discount" id="discount">
+						<div class="sub-total">
+							<span>Sub-total: </span>
+							<span id="sub-total"></span>
+						</div>
+						<div class="discount-amount">
+							<span>Discount: </span>
+							<span id="discount-amount"></span>
+						</div>
+					</div>
+					<div class="total-price">
 						<span>Total price:</span>
-						<span id="amount" class="amount"></span>
+						<span id="price" class="price"></span>
 					</div>
 					<button class="complete-btn" id="complete-btn">Complete order</button>
 				</div>
