@@ -237,7 +237,8 @@ h4{
 	font-size: 22px;
 	color: white;
 	background-color: green;
-	transition: transform 0.1s ease-out
+	transition: transform 0.1s ease-out;
+	cursor: pointer;
 }
 
 .complete-btn:active,
@@ -332,7 +333,7 @@ input {
 	text-align: center;
 	color: rgb(1, 78, 1);
 	background-color: rgba(116, 228, 41, 0.322);
-	width: 420px;
+	width: 450px;
 	margin: 40px auto;
 	border-radius: 10px;
 }
@@ -347,4 +348,33 @@ input {
 	font-size: 20px;
 	margin: 0;
 	padding: 20px;
+}
+
+
+.rating {
+	padding-top: 10px;
+}
+
+.rating-title {
+	margin: 0;
+	font-size: 18px;
+}
+
+.stars {
+	padding: 20px;
+}
+
+.fa-star {
+	color: rgb(255, 255, 82);
+}
+
+#star-5 {
+	color: rgb(255, 255, 82);
+}
+
+.comment {
+	font-size: 18px;
+	color: darkorange;
+	padding-bottom: 20px;
+	margin: 0;
 }

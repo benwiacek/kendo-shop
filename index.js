@@ -8,7 +8,7 @@ let discount = 0
 let totalPrice = 0
 const modal = document.getElementById("modal")
 const paymentForm = document.getElementById("payment-form")
-const confirmation = document.getElementById("confirmation-msg")
+const confirmationMsg = document.getElementById("confirmation-msg")
 
 /* RENDER INVENTORY */
 
@@ -176,18 +176,93 @@ document.getElementById("modal-close-btn").addEventListener("click", () => modal
 
 paymentForm.addEventListener("submit", function(e) {
     e.preventDefault()
+    confirmation()
+})
 
+function confirmation() {
     modal.style.display = "none"
     cart.style.display = "none"
-    confirmation.style.display = "block"
+    confirmationMsg.style.display = "block"
 
     const paymentFormData = new FormData(paymentForm)
     const name = paymentFormData.get("cardholder-name")
 
-    let message = 
-        `<p class="msg-title">Thank you ${name}!</p>
-        <p class="msg-text">Your order of $${totalPrice} is on the way.<br/>
-        You can expect delivery in 2.5 lightyears!</p>`
+    let confirmation = 
+        `<div class="message">
+            <p class="msg-title">Thank you ${name}!</p>
+            <p class="msg-text">Your order of $${totalPrice} is on the way.<br/>
+            You can expect delivery in 66 years!</p>
+        </div>
+        <div class="rating">
+            <p class="rating-title">Rate your experience with us:</p>
+            <div class="stars" id="star-list">
+                <i class="fa-regular fa-star fa-xl" data-rating="1"></i>
+                <i class="fa-regular fa-star fa-xl" data-rating="2"></i>
+                <i class="fa-regular fa-star fa-xl" data-rating="3"></i>
+                <i class="fa-regular fa-star fa-xl" data-rating="4"></i>
+                <i class="fa-regular fa-star fa-xl" data-rating="5"></i>
+            </div>
+            <p class="comment" id="comment"></p>
+        </div>`
     
-    confirmation.innerHTML = message
-})
+    confirmationMsg.innerHTML = confirmation
+
+    const buttons = document.getElementsByTagName("button");
+    for (const button of buttons) {
+        button.disabled = true;
+    }
+    
+    setupRating()
+}
+
+/* RATING FEATURE */
+
+function setupRating() {
+
+    const starList = document.getElementById("star-list")
+    let selectedRating = 0
+
+    const ratingComments = [
+        "That's no moon... that's a terrible review! Prepare for Order 66! 😱",
+        "Your review skills are as weak as your suburi form. More training you need! 🥱",
+        "Adequate your review may be, but room for improvement you have! 😒",
+        "The Force is strong with this one! Almost Jedi-level satisfaction! 😌",
+        "You're our only hope! Thanks for bringing balance to our reviews! ⭐"
+    ]
+
+    function yellowStar(rating) { 
+        const stars = starList.querySelectorAll(".fa-star")
+
+        stars.forEach((star, index) => {
+            star.classList.toggle('fa-solid', index < rating)
+            star.classList.toggle('fa-regular', index >= rating)
+        })
+
+    }
+
+    starList.addEventListener("mouseover", e => {
+        if(e.target.classList.contains("fa-star")) {
+            const rating = parseInt(e.target.dataset.rating)
+            yellowStar(rating)
+        }
+    })
+
+    starList.addEventListener("mouseleave", () => yellowStar(selectedRating))
+
+    starList.addEventListener("click", e => {
+        if(e.target.classList.contains("fa-star")) {
+            const clickedRating = parseInt(e.target.dataset.rating)
+
+            if(clickedRating !== selectedRating) {
+                selectedRating = clickedRating
+                yellowStar(selectedRating)
+                const ratingMessage = ratingComments[selectedRating-1]
+                document.getElementById("comment").textContent = ratingMessage
+            } else {
+                selectedRating = 0
+                yellowStar(selectedRating)
+                document.getElementById("comment").textContent = ""
+            }
+        }     
+    })
+}
