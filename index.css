@@ -375,6 +375,6 @@ input {
 .comment {
 	font-size: 18px;
 	color: darkorange;
-	padding-bottom: 20px;
+	padding: 0 10px 20px 10px;
 	margin: 0;
 }
