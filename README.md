@@ -2,6 +2,8 @@
 
 A Star Wars-themed Kendo equipment shop with full cart functionality, dynamic discounts, and a humorous checkout experience.
 
+<img width="600" height="400" alt="kendoshop-screenshot" src="https://github.com/user-attachments/assets/ae739acf-41f3-48f8-8126-ab2484b968dc" />
+
 [**Live Demo**](https://obiwan-kendogu.netlify.app/)
 
 ## Features
